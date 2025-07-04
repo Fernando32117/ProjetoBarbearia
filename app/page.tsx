@@ -1,17 +1,51 @@
 import BarberShopItem from "@/components/barberShop-item"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
+import BookingItem from "@/components/booking-item"
+import Footer from "@/components/footer"
+import Search from "@/components/search"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import Header from "@/components/ui/header"
-import { Input } from "@/components/ui/input"
 import { db } from "@/lib/prisma"
-import { SearchIcon } from "lucide-react"
 import Image from "next/image"
+
+interface QuickSearchOption {
+  imageUrl: string
+  title: string
+}
+
+export const quickSearchOptions: QuickSearchOption[] = [
+  {
+    imageUrl: "/cabelo.svg",
+    title: "Cabelo",
+  },
+  {
+    imageUrl: "/barba.svg",
+    title: "Barba",
+  },
+  {
+    imageUrl: "/acabamento.svg",
+    title: "Acabamento",
+  },
+  {
+    imageUrl: "/massagem.svg",
+    title: "Massagem",
+  },
+  {
+    imageUrl: "/sobrancelha.svg",
+    title: "Sobrancelha",
+  },
+  {
+    imageUrl: "/hidratacao.svg",
+    title: "Hidratação",
+  },
+]
 
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
-  console.log({ barbershop })
+  const popularBarberShops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
@@ -20,11 +54,20 @@ const Home = async () => {
         <h2 className="text-xl font-bold">Ola, Francisco !</h2>
         <p>Quinta-feira, 03 de Julho </p>
 
-        <div className="mt-6 flex items-center gap-2">
-          <Input></Input>
-          <Button>
-            <SearchIcon></SearchIcon>
-          </Button>
+        <Search></Search>
+
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {quickSearchOptions.map((option) => (
+            <Button className="gap-2" variant="secondary" key={option.title}>
+              <Image
+                src={option.imageUrl}
+                width={16}
+                height={16}
+                alt={option.title}
+              />
+              {option.title}
+            </Button>
+          ))}
         </div>
 
         <div className="relative mt-6 h-[150px] w-full">
@@ -36,32 +79,10 @@ const Home = async () => {
           />
         </div>
 
-        <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
-          Agendamentos
-        </h2>
-
-        <Card className="p-0">
-          <CardContent className="flex justify-between">
-            <div className="flex flex-col gap-2 py-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"></AvatarImage>
-                </Avatar>
-                <p className="text-sm">Barbearia Luna</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid pl-5">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20h00</p>
-            </div>
-          </CardContent>
-        </Card>
+        <BookingItem></BookingItem>
 
         <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
-          Agendamentos
+          Recomendados
         </h2>
 
         <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
@@ -72,7 +93,21 @@ const Home = async () => {
             ></BarberShopItem>
           ))}
         </div>
+
+        <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
+          Populares
+        </h2>
+
+        <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarberShops.map((barbershop) => (
+            <BarberShopItem
+              key={barbershop.id}
+              barbershop={barbershop}
+            ></BarberShopItem>
+          ))}
+        </div>
       </div>
+      <Footer></Footer>
     </div>
   )
 }
