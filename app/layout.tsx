@@ -4,6 +4,7 @@ import { ThemeProvider } from "./theme-provider"
 import "./globals.css"
 import { Toaster } from "sonner"
 import Footer from "@/components/footer"
+import AuthProvider from "./_providers/auth"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,16 +31,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          storageKey="fsw-theme"
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
-        <Footer />
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            storageKey="fsw-theme"
+          >
+            {children}
+          </ThemeProvider>
+          <Footer />
+        </AuthProvider>
+        <Toaster />
       </body>
     </html>
   )
