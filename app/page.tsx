@@ -1,6 +1,5 @@
 import BarberShopItem from "@/components/barberShop-item"
 import BookingItem from "@/components/booking-item"
-import Footer from "@/components/footer"
 import Search from "@/components/search"
 import { Button } from "@/components/ui/button"
 import Header from "@/components/ui/header"
@@ -107,7 +106,6 @@ const Home = async () => {
           ))}
         </div>
       </div>
-      <Footer></Footer>
     </div>
   )
 }

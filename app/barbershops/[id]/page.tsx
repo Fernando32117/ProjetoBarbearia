@@ -1,3 +1,4 @@
+import PhoneItem from "@/components/phone-item"
 import ServiceItem from "@/components/service-item"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
@@ -82,6 +83,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         <h2 className="text-xs font-bold text-gray-400 uppercase">Sobre nós</h2>
         <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
+
       {/* SERVIÇOS */}
       <div className="space-y-3 border-b border-solid p-5">
         <h2 className="text-xs font-bold text-gray-400 uppercase">Serviços</h2>
@@ -94,6 +96,13 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
             />
           ))}
         </div>
+      </div>
+
+      {/* CONTATO */}
+      <div className="space-y-3 p-5">
+        {barbershop.phones.map((phone) => (
+          <PhoneItem key={phone} phone={phone} />
+        ))}
       </div>
     </div>
   )
