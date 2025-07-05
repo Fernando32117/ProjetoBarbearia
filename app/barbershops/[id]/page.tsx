@@ -1,5 +1,6 @@
 import PhoneItem from "@/components/phone-item"
 import ServiceItem from "@/components/service-item"
+import SidebarSheet from "@/components/sidebar-sheet"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
 import { db } from "@/lib/prisma"
@@ -60,6 +61,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
                 <MenuIcon />
               </Button>
             </SheetTrigger>
+            <SidebarSheet></SidebarSheet>
           </Sheet>
         </div>
       </div>
