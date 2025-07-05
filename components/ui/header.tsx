@@ -1,19 +1,21 @@
-import Image from "next/image"
 import { Card, CardContent } from "./card"
-import { Button } from "./button"
 import { MenuIcon } from "lucide-react"
-import Link from "next/link"
+import { Button } from "./button"
+import Image from "next/image"
+import { ThemeSwitcher } from "./theme-switcher"
 
 const Header = () => {
   return (
-    <Card className="rounded-none">
-      <CardContent className="flex flex-row items-center justify-between">
-        <Link href="/">
-          <Image alt="FSW Barber" src="/logo.png" height={18} width={120} />
-        </Link>
-        <Button size="icon" variant="outline" className="cursor-pointer">
-          <MenuIcon></MenuIcon>
-        </Button>
+    <Card>
+      <CardContent className="flex flex-row items-center justify-between p-5">
+        <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />
+
+        <div className="flex items-center gap-2">
+          <ThemeSwitcher />
+          <Button variant="outline" size="icon" className="h-8 w-8">
+            <MenuIcon size={16} />
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
