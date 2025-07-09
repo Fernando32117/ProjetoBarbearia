@@ -16,7 +16,6 @@ interface BarbershopPageProps {
 }
 
 const BarbershopPage = async ({ params }: BarbershopPageProps) => {
-  // chamar o meu banco de dados
   const barbershop = await db.barbershop.findUnique({
     where: {
       id: params.id,
@@ -33,37 +32,37 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
   return (
     <div>
       {/* IMAGEM */}
-      <div>
-        <div className="relative h-[250px] w-full">
-          <Image
-            alt={barbershop.name}
-            src={barbershop?.imageUrl}
-            fill
-            className="object-cover"
-          />
-          <Button
-            size="icon"
-            variant="secondary"
-            className="absolute top-4 left-4"
-            asChild
-          >
-            <Link href="/">
-              <ChevronLeftIcon />
-            </Link>
-          </Button>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                size="icon"
-                variant="outline"
-                className="absolute top-4 right-4"
-              >
-                <MenuIcon />
-              </Button>
-            </SheetTrigger>
-            <SidebarSheet></SidebarSheet>
-          </Sheet>
-        </div>
+      <div className="relative h-[250px] w-full">
+        <Image
+          alt={barbershop.name}
+          src={barbershop?.imageUrl}
+          fill
+          className="object-cover"
+        />
+
+        <Button
+          size="icon"
+          variant="secondary"
+          className="absolute top-4 left-4"
+          asChild
+        >
+          <Link href="/">
+            <ChevronLeftIcon />
+          </Link>
+        </Button>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              size="icon"
+              variant="outline"
+              className="absolute top-4 right-4"
+            >
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SidebarSheet />
+        </Sheet>
       </div>
 
       {/* TÍTULO */}

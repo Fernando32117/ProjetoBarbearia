@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import Header from "@/components/ui/header"
 import { db } from "@/lib/prisma"
 import Image from "next/image"
+import Link from "next/link"
 
 interface QuickSearchOption {
   imageUrl: string
@@ -53,18 +54,28 @@ const Home = async () => {
         <h2 className="text-xl font-bold">Ola, Francisco !</h2>
         <p>Quinta-feira, 03 de Julho </p>
 
-        <Search></Search>
+        <div className="mt-6">
+          <Search />
+        </div>
 
+        {/* BUSCA RÁPIDA */}
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
-            <Button className="gap-2" variant="secondary" key={option.title}>
-              <Image
-                src={option.imageUrl}
-                width={16}
-                height={16}
-                alt={option.title}
-              />
-              {option.title}
+            <Button
+              className="gap-2"
+              variant="secondary"
+              key={option.title}
+              asChild
+            >
+              <Link href={`/barbershops?service=${option.title}`}>
+                <Image
+                  src={option.imageUrl}
+                  width={16}
+                  height={16}
+                  alt={option.title}
+                />
+                {option.title}
+              </Link>
             </Button>
           ))}
         </div>

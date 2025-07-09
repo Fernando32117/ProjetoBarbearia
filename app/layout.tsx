@@ -38,9 +38,11 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="fsw-theme"
           >
-            {children}
+            <div className="flex h-full flex-col">
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
           </ThemeProvider>
-          <Footer />
         </AuthProvider>
         <Toaster />
       </body>
